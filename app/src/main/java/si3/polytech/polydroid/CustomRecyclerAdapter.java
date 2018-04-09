@@ -15,40 +15,44 @@ import java.util.ArrayList;
  * Created by Kienan on 09/04/2018.
  */
 
-public class CustomRecyclerAdapter extends RecyclerView.Adapter<NewsViewHolder> {
+public class CustomRecyclerAdapter extends RecyclerView.Adapter<IncidentViewHolder> {
 
-    ArrayList<News> newsArrayList = new ArrayList<>();
+    ArrayList<Incident> incidentArrayList = new ArrayList<>();
 
     @Override
-    public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public IncidentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) parent.getContext()
-                .getSystemService(Context. LAYOUT_INFLATER_SERVICE );
-        View convertView = inflater.inflate(R.layout. news_grid_item , null );
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View convertView = inflater.inflate(R.layout.item_incident, null);
 
-        ImageView image = (ImageView)convertView.findViewById(R.id.apercu);
-        TextView titre = (TextView)convertView.findViewById(R.id.titre);
-        TextView date = (TextView)convertView.findViewById(R.id.date);
-        TextView categorie = (TextView)convertView.findViewById(R.id.categorie);
 
-        return new NewsViewHolder(convertView, image, titre, categorie, date);
+        ImageView image = (ImageView) convertView.findViewById(R.id.miniature);
+        TextView titre = (TextView) convertView.findViewById(R.id.titre);
+        TextView date = (TextView) convertView.findViewById(R.id.date);
+        TextView categorie = (TextView) convertView.findViewById(R.id.categorie);
+
+
+        return new IncidentViewHolder(convertView, image, titre, categorie, date);
     }
 
     @Override
-    public void onBindViewHolder(NewsViewHolder holder, int position) {
-        News news = newsArrayList.get(position);
-        holder.getTitre().setText(news.getTitre());
-        holder.getDate().setText(news.getDate());
-        holder.getCategorie().setText(news.getCategorie());
+    public void onBindViewHolder(IncidentViewHolder holder, int position) {
+        Incident incident = incidentArrayList.get(position);
 
+        holder.getTitre().setText(incident.getTitre());
+        holder.getDate().setText(incident.getDate().toString());
+        holder.getCategorie().setText(incident.getDescription());
+
+        /*
         ImageView imageView = holder.getImage();
         AsyncImage asyncImage = new AsyncImage(imageView);
         asyncImage.execute(news.getUrlMedia());
-
+        */
 
     }
 
     @Override
     public int getItemCount() {
-        return newsArrayList.size();
+        return incidentArrayList.size();
     }
 }

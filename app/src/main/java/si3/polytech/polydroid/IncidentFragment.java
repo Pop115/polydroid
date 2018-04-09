@@ -2,7 +2,7 @@ package si3.polytech.polydroid;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +16,15 @@ import java.util.ArrayList;
  * Created by Kienan on 25/03/2018.
  */
 
-public class NewsGridFragment extends Fragment {
+public class IncidentFragment extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
-    ArrayList<News> articleList = new ArrayList<>();
-    NewsDBHelper newsDBHelper;
+    ArrayList<Incident> incidentArrayList = new ArrayList<>();
+    IncidentDBHelper newsDBHelper;
 
-    public NewsGridFragment() {
+    public IncidentFragment() {
 
     }
 
@@ -32,27 +32,26 @@ public class NewsGridFragment extends Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static NewsGridFragment newInstance() {
-        NewsGridFragment fragment = new NewsGridFragment();
+    public static IncidentFragment newInstance() {
+        IncidentFragment fragment = new IncidentFragment();
         Bundle args = new Bundle();
         return fragment;
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_news_grid, container, false);
+        View rootView = inflater.inflate(R.layout.content_recycler, container, false);
         return rootView;
     }
 
     @Override
-    public void onActivityCreated(Bundle bundle){
+    public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
 
         try {
-            newsDBHelper = new NewsDBHelper(getContext());
+            newsDBHelper = new IncidentDBHelper(getContext());
             newsDBHelper.createDataBase();
             newsDBHelper.openDataBase();
             newsDBHelper.getAllArticles();
@@ -63,18 +62,19 @@ public class NewsGridFragment extends Fragment {
             e.printStackTrace();
         }
 
-        articleList.add(new News(1, "unLivre", "pour les nuls", "nulsAuteur", "26/03/1997", "SOCIETE", "IMAGE", "http://static.eyrolles.com/img/2/7/5/4/0/3/1/7/9782754031790_h430.jpg"));
-        articleList.add(new News(2, "rickRoll", "never gonna give you up", "rick astley", "12/12/12", "POLITIQUE", "VIDEO", "https://img.youtube.com/vi/dQw4w9WgXcQ/default.jpg"));
+        incidentArrayList.addAll(newsDBHelper.getAllArticles());
 
-        articleList.addAll(newsDBHelper.getAllArticles());
+        //NewsCustomAdapter arrayAdapter = new NewsCustomAdapter(this.getContext(), android.R.layout.simple_list_item_1, articleList);
+        //GridView gridView = (GridView) this.getView().findViewById(R.id.grid);
+        //gridView.setAdapter(arrayAdapter);
 
-        RecyclerView recyclerView = (RecyclerView) this.getView().findViewById(R.id.grid);
+        RecyclerView recyclerView = (RecyclerView) this.getView().findViewById(R.id.recycler);
         CustomRecyclerAdapter adapter = new CustomRecyclerAdapter();
-        adapter.newsArrayList.addAll(articleList);
+        adapter.incidentArrayList.addAll(incidentArrayList);
         recyclerView.setAdapter(adapter);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(),2);
-        recyclerView.setLayoutManager(gridLayoutManager);
-
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
 
     }
+
 }

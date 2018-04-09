@@ -9,14 +9,14 @@ import android.widget.TextView;
  * Created by Kienan on 09/04/2018.
  */
 
-class NewsViewHolder extends RecyclerView.ViewHolder {
+class IncidentViewHolder extends RecyclerView.ViewHolder {
 
     ImageView image;
     TextView titre;
     TextView categorie;
     TextView date;
 
-    public NewsViewHolder(View itemView, ImageView image, TextView titre, TextView categorie, TextView date) {
+    public IncidentViewHolder(View itemView, ImageView image, TextView titre, TextView categorie, TextView date) {
         super(itemView);
         this.image = image;
         this.titre = titre;
