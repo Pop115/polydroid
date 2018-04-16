@@ -103,8 +103,16 @@ public class IncidentDBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         */
-        Incident newIncident = new Incident(new Date(), "Moi", new Localisation("TEMPLIERS", "E+155", "jolie salle"), "Chaise cassée, on va tous mourir!", "Chaise cassée", Importance.Critique, Type.ELEC);
+        Incident newIncident = new Incident(new Date(), "Moi", new Localisation("TEMPLIERS", "E+155", "jolie salle"), "Chaise cassée, gros problème!", "Chaise cassée", Importance.Critique, Type.ELEC);
         incidentArrayList.add(newIncident);
+        incidentArrayList.add(newIncident);
+        incidentArrayList.add(newIncident);
+        incidentArrayList.add(newIncident);
+        incidentArrayList.add(newIncident);
+        incidentArrayList.add(newIncident);
+        incidentArrayList.add(newIncident);
+        incidentArrayList.add(newIncident);
+
         return incidentArrayList;
     }
 
