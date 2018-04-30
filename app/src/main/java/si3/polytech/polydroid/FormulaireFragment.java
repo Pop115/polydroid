@@ -61,4 +61,12 @@ public class FormulaireFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if( requestCode == 1888 ) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            ((ImageView)inflatedView.findViewById(R.id.miniature)).setImageBitmap(photo);
+        }
+    }
+
 }

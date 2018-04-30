@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1d91acbc-6bb5-4a9a-b3a7-ea008abb02f7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/si3/polytech/polydroid/FormulaireFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/si3/polytech/polydroid/FormulaireFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/formulaire_declaration.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/formulaire_declaration.xml" />
     </list>
     <ignored path="polydroid.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,8 +59,8 @@
       <file leaf-file-name="FormulaireFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/si3/polytech/polydroid/FormulaireFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="55" column="21" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+            <state relative-caret-position="589">
+              <caret line="67" column="64" selection-start-line="67" selection-start-column="64" selection-end-line="67" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -615,8 +614,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/si3/polytech/polydroid/FormulaireFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="55" column="21" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+        <state relative-caret-position="589">
+          <caret line="67" column="64" selection-start-line="67" selection-start-column="64" selection-end-line="67" selection-end-column="64" />
           <folding />
         </state>
       </provider>
