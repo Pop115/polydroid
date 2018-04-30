@@ -41,9 +41,24 @@ public class FormulaireFragment extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if( requestCode == 1888 ) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            ((ImageView)inflatedView.findViewById(R.id.image)).setImageBitmap(photo);
+        }
+    }
+
+    @Override
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
-
+        Button addImageButton = (Button)inflatedView.findViewById(R.id.declarer_incident);
+        addImageButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, 1888);
+            }
+        });
     }
 
 }

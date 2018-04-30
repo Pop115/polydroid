@@ -15,10 +15,10 @@
         android:layout_height="match_parent" />
 
     <Button
-        android:id="@+id/declarer_incident"
+        android:id="@+id/add_photo"
         android:layout_width="97dp"
         android:layout_height="230dp"
-        android:text="Déclarer un nouvel incident" />
+        android:text="add a photo to that incident" />
 
 
 
