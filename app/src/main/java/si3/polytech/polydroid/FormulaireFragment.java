@@ -1,5 +1,7 @@
 package si3.polytech.polydroid;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -44,15 +48,15 @@ public class FormulaireFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if( requestCode == 1888 ) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            ((ImageView)inflatedView.findViewById(R.id.image)).setImageBitmap(photo);
+            ((ImageView)this.getView().findViewById(R.id.image)).setImageBitmap(photo);
         }
     }
 
     @Override
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
-        Button addImageButton = (Button)inflatedView.findViewById(R.id.declarer_incident);
-        addImageButton.setOnClickListener(new OnClickListener() {
+        Button addImageButton = (Button)this.getView().findViewById(R.id.add_photo);
+        addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -61,12 +65,5 @@ public class FormulaireFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if( requestCode == 1888 ) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            ((ImageView)inflatedView.findViewById(R.id.miniature)).setImageBitmap(photo);
-        }
-    }
 
 }
