@@ -8,12 +8,11 @@
     tools:context="si3.polytech.polydroid.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <fragment
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment"
-        android:name="si3.polytech.polydroid.IncidentFragment"
         android:orientation="vertical">
-    </fragment>
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,7 @@
 package si3.polytech.polydroid;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class IncidentDBHelper extends SQLiteOpenHelper {
 
-    private static String DB_NAME = "polynews_database";
+    private static String DB_NAME = "database";
     private final Context myContext;
     private SQLiteDatabase myDataBase;
 
@@ -93,16 +94,15 @@ public class IncidentDBHelper extends SQLiteOpenHelper {
 
     public List<Incident> getAllArticles() {
         ArrayList<Incident> incidentArrayList = new ArrayList<>();
+
         /*
-        Cursor cursor = myDataBase.rawQuery("SELECT * FROM news ORDER BY date DESC", null);
+        Cursor cursor = myDataBase.rawQuery("SELECT * FROM Incidents", null);
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-
-
-            Incident newArticle = new Incident();
-            incidentArrayList.add(newArticle);
+            System.out.println(cursor);
         }
         cursor.close();
         */
+
         Incident newIncident = new Incident(new Date(), "Moi", new Localisation("TEMPLIERS", "E+155", "jolie salle"), "Chaise cassée, gros problème!", "Chaise cassée", Importance.Critique, Type.ELEC);
         incidentArrayList.add(newIncident);
         incidentArrayList.add(newIncident);
