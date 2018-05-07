@@ -50,18 +50,7 @@ public class IncidentFragment extends Fragment {
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
 
-        try {
-            newsDBHelper = new IncidentDBHelper(getContext());
-            newsDBHelper.createDataBase();
-            newsDBHelper.openDataBase();
-            newsDBHelper.getAllArticles();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        newsDBHelper = new IncidentDBHelper();
         incidentArrayList.addAll(newsDBHelper.getAllArticles());
 
         //NewsCustomAdapter arrayAdapter = new NewsCustomAdapter(this.getContext(), android.R.layout.simple_list_item_1, articleList);
