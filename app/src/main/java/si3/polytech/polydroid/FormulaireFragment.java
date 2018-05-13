@@ -10,9 +10,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Kienan on 16/04/2018.
@@ -39,6 +48,16 @@ public class FormulaireFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.formulaire_declaration, container, false);
+
+        TextView dateText = (TextView) rootView.findViewById(R.id.dateText);
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH)+1;
+        int year = calendar.get(Calendar.YEAR);
+
+        DecimalFormat mFormat= new DecimalFormat("00");
+        dateText.setText(mFormat.format(Double.valueOf(day))+"/"+mFormat.format(Double.valueOf(month))+"/"+year);
+
         ImageView calendarImage = (ImageView)rootView.findViewById(R.id.calendarImage);
         calendarImage.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -47,6 +66,26 @@ public class FormulaireFragment extends Fragment {
                 dialogFragment.show(getFragmentManager(), "DatePicker");
             }
         });
+
+        Spinner typeSpinner = (Spinner)rootView.findViewById(R.id.typeSpinner);
+        List<String> typeList = new ArrayList<String>();
+        for(Type type : Type.values()){
+            typeList.add(type.toString());
+        }
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, typeList);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(typeAdapter);
+
+
+        Spinner importanceSpinner = (Spinner)rootView.findViewById(R.id.importanceSpinner);
+        List<String> importanceList = new ArrayList<String>();
+        for(Importance importance : Importance.values()){
+            importanceList.add(importance.toString());
+        }
+        ArrayAdapter<String> importanceAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, importanceList);
+        importanceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        importanceSpinner.setAdapter(importanceAdapter);
+
         return rootView;
     }
 

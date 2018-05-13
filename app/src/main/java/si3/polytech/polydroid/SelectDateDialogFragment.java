@@ -24,7 +24,7 @@ public class SelectDateDialogFragment extends DialogFragment implements DatePick
         populateSetDate(yy, mm+1, dd);
     }
     public void populateSetDate(int year, int month, int day) {
-        ((TextView)getActivity().findViewById(R.id.dateText)).setText(month+"/"+day+"/"+year);
+        ((TextView)getActivity().findViewById(R.id.dateText)).setText(day+"/"+month+"/"+"/"+year);
     }
 
 }
