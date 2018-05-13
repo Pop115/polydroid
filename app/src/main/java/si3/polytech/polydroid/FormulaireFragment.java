@@ -1,20 +1,18 @@
 package si3.polytech.polydroid;
 
+
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
-
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Created by Kienan on 16/04/2018.
@@ -41,8 +39,19 @@ public class FormulaireFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.formulaire_declaration, container, false);
+        ImageView calendarImage = (ImageView)rootView.findViewById(R.id.calendarImage);
+        calendarImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                DialogFragment dialogFragment = new SelectDateDialogFragment();
+                dialogFragment.show(getFragmentManager(), "DatePicker");
+            }
+        });
         return rootView;
     }
+
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -64,6 +73,14 @@ public class FormulaireFragment extends Fragment {
             }
         });
     }
+
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int year, int month, int day) {
+
+        }
+    };
 
 
 }
