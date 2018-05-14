@@ -1,5 +1,6 @@
 package si3.polytech.polydroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -26,12 +27,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment, FormulaireFragment.newInstance())
-                        .addToBackStack(null)
-                        .commit();
-
+                Intent intent = new Intent(view.getContext(), FormulaireActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -44,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportFragmentManager()
+        getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment, IncidentFragment.newInstance())
                 .addToBackStack(null)
@@ -89,17 +86,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.liste_incidents) {
 
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.creer_incident) {
+            Intent intent = new Intent(this, FormulaireActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.parametres) {
 
         }
 

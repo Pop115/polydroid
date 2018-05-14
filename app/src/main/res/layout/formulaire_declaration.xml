@@ -61,7 +61,7 @@
             android:id="@+id/add_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="add a photo to that incident" />
+            android:text="Ajouter une photo" />
 
 
         <TextView
@@ -83,8 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textMultiLine"
-            android:lines="5"
-            android:minLines="3"
+            android:lines="20"
+            android:minLines="1"
             android:scrollbars="vertical" />
 
 

@@ -3,23 +3,20 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/liste_incidents"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Liste d'incidents" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/creer_incident"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="Créer un nouvel incident" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/parametres"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Paramètres" />
     </group>
 
+    <!--
     <item android:title="Communicate">
         <menu>
             <item
@@ -32,5 +29,6 @@
                 android:title="Send" />
         </menu>
     </item>
+    -->
 
 </menu>

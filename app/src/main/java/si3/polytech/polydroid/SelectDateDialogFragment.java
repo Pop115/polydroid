@@ -21,10 +21,11 @@ public class SelectDateDialogFragment extends DialogFragment implements DatePick
     }
 
     public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-        populateSetDate(yy, mm+1, dd);
+        populateSetDate(yy, mm + 1, dd);
     }
+
     public void populateSetDate(int year, int month, int day) {
-        ((TextView)getActivity().findViewById(R.id.dateText)).setText(day+"/"+month+"/"+"/"+year);
+        ((TextView) getActivity().findViewById(R.id.dateText)).setText(day + "/" + month + "/" + "/" + year);
     }
 
 }
