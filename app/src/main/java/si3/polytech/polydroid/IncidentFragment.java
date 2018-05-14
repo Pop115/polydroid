@@ -72,7 +72,6 @@ public class IncidentFragment extends Fragment {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     private class AsyncDBHelper extends AsyncTask<Void, Void, ArrayList<Incident>> {
 
         @Override
@@ -104,7 +103,7 @@ public class IncidentFragment extends Fragment {
         public ArrayList<Incident> getAllArticles() throws JSONException {
             ArrayList<Incident> incidentArrayList = new ArrayList<>();
             JSONArray incidentJSON = null;
-            String stringFromURL = getStringFromURL("http://192.168.1.34:3000/incidents");
+            String stringFromURL = getStringFromURL("http://captainpop.alwaysdata.net/incidents");
 
             incidentJSON = new JSONArray(stringFromURL);
 

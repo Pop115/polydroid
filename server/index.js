@@ -18,16 +18,16 @@ const client = new Client({
 client.connect()
 	.then(() => {
 		console.log('[' + new Date().toISOString() + '] Connect to Postgres OK ');
-		const server = app.listen(process.env.PORT || 3000, () => {
-			console.log('[' + new Date().toISOString() + '] Server launched on port ' + server.address().port + '!');
-		});
+		const server = app.listen(process.env.ALWAYSDATA_HTTPD_PORT, process.env.ALWAYSDATA_HTTPD_IP, function () {
+                         console.log('Example app started!'+process.env.ALWAYSDATA_HTTPD_PORT)
+                       })
 	})
 	.catch(err => {
 		console.log(err);
 	});
 
 
-app.get('/incidents', async (req, res) => {
+app.get('/incidents', async(req, res) => {
 	try {
 		const result = await client.query('SELECT * FROM "Incidents"');
 		console.log("incidents:  " + result.rows[0].message);
