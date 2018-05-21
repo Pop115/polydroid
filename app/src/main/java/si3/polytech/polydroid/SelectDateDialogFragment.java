@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -25,7 +26,7 @@ public class SelectDateDialogFragment extends DialogFragment implements DatePick
     }
 
     public void populateSetDate(int year, int month, int day) {
-        ((TextView) getActivity().findViewById(R.id.dateText)).setText(day + "/" + month + "/" + "/" + year);
+        ((TextView) getActivity().findViewById(R.id.formDate)).setText(day + "/" + month + "/" + "/" + year);
     }
 
 }

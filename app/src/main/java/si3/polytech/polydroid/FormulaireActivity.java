@@ -5,25 +5,27 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,7 +39,7 @@ public class FormulaireActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.formulaire_declaration);
 
-        TextView dateText = (TextView) this.findViewById(R.id.dateText);
+        TextView dateText = (TextView) this.findViewById(R.id.formDate);
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH) + 1;
@@ -55,7 +57,7 @@ public class FormulaireActivity extends AppCompatActivity {
             }
         });
 
-        Spinner typeSpinner = (Spinner) this.findViewById(R.id.typeSpinner);
+        Spinner typeSpinner = (Spinner) this.findViewById(R.id.formType);
         List<String> typeList = new ArrayList<String>();
         for (Type type : Type.values()) {
             typeList.add(type.toString());
@@ -65,7 +67,7 @@ public class FormulaireActivity extends AppCompatActivity {
         typeSpinner.setAdapter(typeAdapter);
 
 
-        Spinner importanceSpinner = (Spinner) this.findViewById(R.id.importanceSpinner);
+        Spinner importanceSpinner = (Spinner) this.findViewById(R.id.formImportance);
         List<String> importanceList = new ArrayList<String>();
         for (Importance importance : Importance.values()) {
             importanceList.add(importance.toString());
@@ -83,8 +85,21 @@ public class FormulaireActivity extends AppCompatActivity {
                 startActivityForResult(cameraIntent, 1888);
             }
         });
+
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 0, 0, "Send").setIcon(R.drawable.ic_menu_send)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return sendFormulaire();
+            }
+        });
+        return true;
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -101,6 +116,30 @@ public class FormulaireActivity extends AppCompatActivity {
         }
     };
 
+    public boolean sendFormulaire(){
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Incidents");
 
+        EditText titreView = (EditText)findViewById(R.id.formTitre);
+        EditText descriptionView = (EditText)findViewById(R.id.formDescription);
+        TextView dateView = (TextView)findViewById(R.id.formDate);
+        Spinner typeSpinner = (Spinner)findViewById(R.id.formType);
+        Spinner importanceSpinner = (Spinner)findViewById(R.id.formImportance);
+
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date = format.parse(dateView.getText().toString());
+            System.out.println(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Incident newIncident = new Incident(date.getTime(), "TestAuteur", new Localisation("batiment", "salle", "details"), descriptionView.getText().toString(), titreView.getText().toString(), Importance.values()[importanceSpinner.getSelectedItemPosition()], Type.values()[typeSpinner.getSelectedItemPosition()]);
+        myRef.push().setValue(newIncident);
+
+        return true;
+    }
 
 }

@@ -28,5 +28,4 @@ enum Type {
         return type;
     }
 
-
 }

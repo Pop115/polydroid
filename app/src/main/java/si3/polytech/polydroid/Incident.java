@@ -1,5 +1,8 @@
 package si3.polytech.polydroid;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 
 /**
@@ -8,7 +11,7 @@ import java.util.Date;
 
 public class Incident {
 
-    private Date date;
+    private long timestamp;
     private String auteur;
     private Localisation localisation;
     private String description;
@@ -16,8 +19,18 @@ public class Incident {
     private Importance importance;
     private Type type;
 
-    public Incident(Date date, String auteur, Localisation localisation, String description, String titre, Importance importance, Type type) {
-        this.date = date;
+    public Incident(){
+        this.timestamp = System.currentTimeMillis();
+        this.auteur = "Aucun";
+        this.localisation = new Localisation("Aucun", "Aucun", "Aucun");
+        this.description = "Aucun";
+        this.titre = "Aucun";
+        this.importance = Importance.Faible;
+        this.type = Type.AUTRE;
+    }
+
+    public Incident(long timestamp, String auteur, Localisation localisation, String description, String titre, Importance importance, Type type) {
+        this.timestamp = timestamp;
         this.auteur = auteur;
         this.localisation = localisation;
         this.description = description;
@@ -26,12 +39,33 @@ public class Incident {
         this.type = type;
     }
 
-    public Date getDate() {
-        return date;
+    @Override
+    public String toString() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("auteur", auteur);
+            jsonObject.put("timestamp", timestamp);
+            jsonObject.put("localisation", localisation.toString());
+            jsonObject.put("description", description);
+            jsonObject.put("titre", titre);
+            jsonObject.put("importance", importance.toString());
+            jsonObject.put("type", type.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Date getDate(){
+        return new Date(timestamp);
     }
 
     public String getAuteur() {

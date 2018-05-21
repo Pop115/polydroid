@@ -28,11 +28,14 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<IncidentViewHold
 
         ImageView image = (ImageView) convertView.findViewById(R.id.miniature);
         TextView titre = (TextView) convertView.findViewById(R.id.titre);
+        TextView localisation = (TextView) convertView.findViewById(R.id.localisation);
+        TextView type = (TextView) convertView.findViewById(R.id.type);
         TextView date = (TextView) convertView.findViewById(R.id.date);
         TextView categorie = (TextView) convertView.findViewById(R.id.categorie);
+        TextView auteur = (TextView) convertView.findViewById(R.id.auteur);
 
 
-        return new IncidentViewHolder(convertView, image, titre, categorie, date);
+        return new IncidentViewHolder(convertView, image, auteur, titre, type, localisation, categorie, date);
     }
 
     @Override
@@ -42,6 +45,9 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<IncidentViewHold
         holder.getTitre().setText(incident.getTitre());
         holder.getDate().setText(incident.getDate().toString());
         holder.getCategorie().setText(incident.getDescription());
+        holder.getAuteur().setText(incident.getAuteur());
+        holder.getLocalisation().setText(incident.getLocalisation().toString());
+        holder.getType().setText(incident.getType().toString());
 
         /*
         ImageView imageView = holder.getImage();

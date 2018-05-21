@@ -10,10 +10,23 @@ public class Localisation {
     String salle;
     String details;
 
+    public Localisation(){
+        this.batiment = "Aucun";
+        this.salle = "Aucun";
+        this.details = "Aucun";
+    }
+
     public Localisation(String batiment, String salle, String details) {
         this.batiment = batiment;
         this.salle = salle;
         this.details = details;
+    }
+
+    @Override
+    public String toString() {
+        return "Batiment: "+batiment+"\n"+
+                "Salle: "+salle+"\n"+
+                "Details: "+details;
     }
 
     public String getBatiment() {
