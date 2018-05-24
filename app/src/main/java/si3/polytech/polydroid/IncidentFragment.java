@@ -71,17 +71,17 @@ public class IncidentFragment extends Fragment {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -90,8 +90,6 @@ public class IncidentFragment extends Fragment {
             }
         });
 
-        //AsyncTaskGetIncidents incidentDBHelper = new AsyncTaskGetIncidents();
-        //incidentDBHelper.execute();
 
 
     }

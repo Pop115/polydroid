@@ -9,11 +9,37 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Auteur"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/detailsAuteur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date de l'incident" />
+            android:layout_marginTop="5dp"
+            android:text="Date"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/detailsDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Date de résolution souhaitée"
+            android:textSize="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,70 +47,52 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/formDate"
+                android:id="@+id/detailsDateWanted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <ImageView
-                android:id="@+id/calendarImage"
+            <ImageButton
+                android:id="@+id/calendarAddEvent"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/calendar" />
+                android:src="@drawable/calendar_add"
+                android:layout_marginLeft="5dp"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true">
+
+            </ImageButton>
+
         </LinearLayout>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date de résolution souhaitée" />
+            android:layout_marginTop="5dp"
+            android:text="Type"
+            android:textSize="16dp" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/detailsType"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/formDate2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:id="@+id/calendarImage2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/calendar" />
-        </LinearLayout>
+            android:layout_height="wrap_content"></TextView>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Type" />
-
-        <Spinner
-            android:id="@+id/formType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
-
+            android:layout_marginTop="5dp"
+            android:text="Importance"
+            android:textSize="16dp" />
 
         <TextView
+            android:id="@+id/detailsImportance"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Importance" />
+            android:layout_height="wrap_content"></TextView>
 
-        <Spinner
-            android:id="@+id/formImportance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Photo" />
-
-        <Button
-            android:id="@+id/add_photo"
+        <ImageView
+            android:id="@+id/detailsPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ajouter une photo" />
@@ -93,10 +101,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Titre" />
+            android:layout_marginTop="5dp"
+            android:text="Titre"
+            android:textSize="16dp" />
 
-        <EditText
-            android:id="@+id/formTitre"
+        <TextView
+            android:id="@+id/detailsTitre"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -104,15 +114,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Description" />
+            android:layout_marginTop="5dp"
+            android:text="Description"
+            android:textSize="16dp" />
 
-        <EditText
-            android:id="@+id/formDescription"
+        <TextView
+            android:id="@+id/detailsDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textMultiLine"
-            android:lines="20"
-            android:minLines="1"
             android:scrollbars="vertical" />
 
 

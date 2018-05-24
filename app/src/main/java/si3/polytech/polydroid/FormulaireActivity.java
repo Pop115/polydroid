@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,15 +45,31 @@ public class FormulaireActivity extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
-
         DecimalFormat mFormat = new DecimalFormat("00");
         dateText.setText(mFormat.format(Double.valueOf(day)) + "/" + mFormat.format(Double.valueOf(month)) + "/" + year);
+
+        TextView dateTextWanted = (TextView) this.findViewById(R.id.formDate2);
+        calendar.add(Calendar.DATE, 1);
+        int day2 = calendar.get(Calendar.DAY_OF_MONTH);
+        int month2 = calendar.get(Calendar.MONTH) + 1;
+        int year2 = calendar.get(Calendar.YEAR);
+        dateTextWanted.setText(mFormat.format(Double.valueOf(day2)) + "/" + mFormat.format(Double.valueOf(month2)) + "/" + year2);
+
 
         ImageView calendarImage = (ImageView) this.findViewById(R.id.calendarImage);
         calendarImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialogFragment = new SelectDateDialogFragment();
+                DialogFragment dialogFragment = new SelectDateDialogFragment((TextView)findViewById(R.id.formDate));
+                dialogFragment.show(getFragmentManager(), "DatePicker");
+            }
+        });
+
+        ImageView calendarImage2 = (ImageView) this.findViewById(R.id.calendarImage2);
+        calendarImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment dialogFragment = new SelectDateDialogFragment((TextView)findViewById(R.id.formDate2));
                 dialogFragment.show(getFragmentManager(), "DatePicker");
             }
         });
@@ -95,7 +112,14 @@ public class FormulaireActivity extends AppCompatActivity {
         menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                return sendFormulaire();
+                if(sendFormulaire()){
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    startActivity(intent);
+                    return true;
+                }else{
+                    Toast.makeText(getBaseContext(), "Erreur d'envoi", Toast.LENGTH_LONG);
+                    return false;
+                }
             }
         });
         return true;
@@ -109,35 +133,33 @@ public class FormulaireActivity extends AppCompatActivity {
         }
     }
 
-    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker arg0, int year, int month, int day) {
-
-        }
-    };
-
-    public boolean sendFormulaire(){
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Incidents");
-
+    public Incident getIncidentFromFormulaire(){
         EditText titreView = (EditText)findViewById(R.id.formTitre);
         EditText descriptionView = (EditText)findViewById(R.id.formDescription);
         TextView dateView = (TextView)findViewById(R.id.formDate);
+        TextView dateView2 = (TextView)findViewById(R.id.formDate2);
         Spinner typeSpinner = (Spinner)findViewById(R.id.formType);
         Spinner importanceSpinner = (Spinner)findViewById(R.id.formImportance);
 
         Date date = new Date();
+        Date dateWanted = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
             date = format.parse(dateView.getText().toString());
-            System.out.println(date);
+            dateWanted = format.parse(dateView2.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        Incident newIncident = new Incident(date.getTime(), "TestAuteur", new Localisation("batiment", "salle", "details"), descriptionView.getText().toString(), titreView.getText().toString(), Importance.values()[importanceSpinner.getSelectedItemPosition()], Type.values()[typeSpinner.getSelectedItemPosition()]);
-        myRef.push().setValue(newIncident);
+        Incident newIncident = new Incident(date.getTime(), dateWanted.getTime(), "TestAuteur", new Localisation("batiment", "salle", "details"), descriptionView.getText().toString(), titreView.getText().toString(), Importance.values()[importanceSpinner.getSelectedItemPosition()], Type.values()[typeSpinner.getSelectedItemPosition()]);
+
+        return newIncident;
+    }
+
+    public boolean sendFormulaire(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Incidents");
+        myRef.push().setValue(getIncidentFromFormulaire());
 
         return true;
     }

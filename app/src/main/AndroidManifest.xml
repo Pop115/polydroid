@@ -24,6 +24,10 @@
             android:parentActivityName=".MainActivity">
         </activity>
 
+        <activity
+            android:name=".DetailsActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
 
     </application>
 

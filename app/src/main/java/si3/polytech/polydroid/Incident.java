@@ -3,15 +3,18 @@ package si3.polytech.polydroid;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Created by Kienan on 09/04/2018.
  */
 
-public class Incident {
+public class Incident implements Serializable{
 
     private long timestamp;
+    private long timestampWanted;
     private String auteur;
     private Localisation localisation;
     private String description;
@@ -21,6 +24,9 @@ public class Incident {
 
     public Incident(){
         this.timestamp = System.currentTimeMillis();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        this.timestampWanted = cal.getTimeInMillis();
         this.auteur = "Aucun";
         this.localisation = new Localisation("Aucun", "Aucun", "Aucun");
         this.description = "Aucun";
@@ -29,8 +35,9 @@ public class Incident {
         this.type = Type.AUTRE;
     }
 
-    public Incident(long timestamp, String auteur, Localisation localisation, String description, String titre, Importance importance, Type type) {
+    public Incident(long timestamp, long timestampWanted, String auteur, Localisation localisation, String description, String titre, Importance importance, Type type) {
         this.timestamp = timestamp;
+        this.timestampWanted = timestampWanted;
         this.auteur = auteur;
         this.localisation = localisation;
         this.description = description;
@@ -59,6 +66,8 @@ public class Incident {
     public long getTimestamp() {
         return timestamp;
     }
+
+    public long getTimestampWanted(){return timestampWanted;}
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;

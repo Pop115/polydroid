@@ -1,16 +1,30 @@
 package si3.polytech.polydroid;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class SelectDateDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+    TextView textView;
+
+    public SelectDateDialogFragment(){
+        this.textView = null;
+    }
+
+    @SuppressLint("ValidFragment")
+    public SelectDateDialogFragment(TextView textView){
+        this.textView = textView;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -26,7 +40,8 @@ public class SelectDateDialogFragment extends DialogFragment implements DatePick
     }
 
     public void populateSetDate(int year, int month, int day) {
-        ((TextView) getActivity().findViewById(R.id.formDate)).setText(day + "/" + month + "/" + "/" + year);
+        DecimalFormat mFormat = new DecimalFormat("00");
+        textView.setText(mFormat.format(Double.valueOf(day)) + "/" + mFormat.format(Double.valueOf(month)) + "/" + (year));
     }
 
 }
