@@ -1,18 +1,25 @@
 package si3.polytech.polydroid;
 
-import android.app.DatePickerDialog;
+import android.Manifest;
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,6 +42,8 @@ import java.util.List;
 
 public class FormulaireActivity extends AppCompatActivity {
 
+    Contact contact = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,21 +64,20 @@ public class FormulaireActivity extends AppCompatActivity {
         int year2 = calendar.get(Calendar.YEAR);
         dateTextWanted.setText(mFormat.format(Double.valueOf(day2)) + "/" + mFormat.format(Double.valueOf(month2)) + "/" + year2);
 
-
-        ImageView calendarImage = (ImageView) this.findViewById(R.id.calendarImage);
+        ImageButton calendarImage = (ImageButton) this.findViewById(R.id.calendarImage);
         calendarImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialogFragment = new SelectDateDialogFragment((TextView)findViewById(R.id.formDate));
+                DialogFragment dialogFragment = new SelectDateDialogFragment((TextView) findViewById(R.id.formDate));
                 dialogFragment.show(getFragmentManager(), "DatePicker");
             }
         });
 
-        ImageView calendarImage2 = (ImageView) this.findViewById(R.id.calendarImage2);
+        ImageButton calendarImage2 = (ImageButton) this.findViewById(R.id.calendarImage2);
         calendarImage2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialogFragment = new SelectDateDialogFragment((TextView)findViewById(R.id.formDate2));
+                DialogFragment dialogFragment = new SelectDateDialogFragment((TextView) findViewById(R.id.formDate2));
                 dialogFragment.show(getFragmentManager(), "DatePicker");
             }
         });
@@ -105,6 +113,19 @@ public class FormulaireActivity extends AppCompatActivity {
 
     }
 
+    public void pickContact(View view) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(intent, 1);
+        }else{
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    2);
+
+        }
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, 0, 0, "Send").setIcon(R.drawable.ic_menu_send)
@@ -112,11 +133,11 @@ public class FormulaireActivity extends AppCompatActivity {
         menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                if(sendFormulaire()){
+                if (sendFormulaire()) {
                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(intent);
                     return true;
-                }else{
+                } else {
                     Toast.makeText(getBaseContext(), "Erreur d'envoi", Toast.LENGTH_LONG);
                     return false;
                 }
@@ -130,16 +151,48 @@ public class FormulaireActivity extends AppCompatActivity {
         if (requestCode == 1888) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             ((ImageView) this.findViewById(R.id.image)).setImageBitmap(photo);
+        } else if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                contact = new Contact();
+                Uri contactData = data.getData();
+                Cursor cursor = getContentResolver().query(contactData, null, null, null, null);
+                if (cursor.moveToFirst()) {
+                    String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+                    String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                    if (hasPhone.equalsIgnoreCase("1")) {
+                        Cursor phones = getContentResolver().query(
+                                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
+                                null, null);
+
+                        while (phones.moveToNext())
+                            contact.getPhoneNumbers().add("" + phones.getString(phones.getColumnIndex("data1")));
+
+                        phones.moveToFirst();
+                        String cNumber = phones.getString(phones.getColumnIndex("data1"));
+
+                        String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        contact.setName(name);
+
+                        TextView formContact = (TextView)findViewById(R.id.formContact);
+                        formContact.setText(contact.getPhoneNumbers().get(0));
+                        return;
+                    }
+                }
+                Toast.makeText(this, "Contact invalide", Toast.LENGTH_LONG);
+
+
+            }
         }
     }
 
-    public Incident getIncidentFromFormulaire(){
-        EditText titreView = (EditText)findViewById(R.id.formTitre);
-        EditText descriptionView = (EditText)findViewById(R.id.formDescription);
-        TextView dateView = (TextView)findViewById(R.id.formDate);
-        TextView dateView2 = (TextView)findViewById(R.id.formDate2);
-        Spinner typeSpinner = (Spinner)findViewById(R.id.formType);
-        Spinner importanceSpinner = (Spinner)findViewById(R.id.formImportance);
+    public Incident getIncidentFromFormulaire() {
+        EditText titreView = (EditText) findViewById(R.id.formTitre);
+        EditText descriptionView = (EditText) findViewById(R.id.formDescription);
+        TextView dateView = (TextView) findViewById(R.id.formDate);
+        TextView dateView2 = (TextView) findViewById(R.id.formDate2);
+        Spinner typeSpinner = (Spinner) findViewById(R.id.formType);
+        Spinner importanceSpinner = (Spinner) findViewById(R.id.formImportance);
 
         Date date = new Date();
         Date dateWanted = new Date();
@@ -152,11 +205,12 @@ public class FormulaireActivity extends AppCompatActivity {
         }
 
         Incident newIncident = new Incident(date.getTime(), dateWanted.getTime(), "TestAuteur", new Localisation("batiment", "salle", "details"), descriptionView.getText().toString(), titreView.getText().toString(), Importance.values()[importanceSpinner.getSelectedItemPosition()], Type.values()[typeSpinner.getSelectedItemPosition()]);
+        newIncident.setContact(contact);
 
         return newIncident;
     }
 
-    public boolean sendFormulaire(){
+    public boolean sendFormulaire() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Incidents");
         myRef.push().setValue(getIncidentFromFormulaire());

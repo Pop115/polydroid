@@ -40,7 +40,6 @@ public class IncidentFragment extends Fragment {
         return fragment;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,9 +63,9 @@ public class IncidentFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Incident incident = dataSnapshot.getValue(Incident.class);
+                incident.setFirebaseId(dataSnapshot.getKey());
                 adapter.incidentArrayList.add(incident);
                 adapter.notifyDataSetChanged();
-                System.out.println(incident);
             }
 
             @Override
@@ -76,6 +75,8 @@ public class IncidentFragment extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Incident incident = dataSnapshot.getValue(Incident.class);
+                adapter.incidentArrayList.remove(incident);
                 adapter.notifyDataSetChanged();
             }
 
@@ -86,6 +87,7 @@ public class IncidentFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                adapter.notifyDataSetChanged();
 
             }
         });

@@ -3,14 +3,16 @@
     android:id="@+id/item_incident"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:orientation="vertical"
     android:background="@drawable/border"
+    android:orientation="vertical"
     android:padding="5dp">
 
     <ImageView
         android:id="@+id/miniature"
-        android:layout_width="100dp"
-        android:layout_height="match_parent" />
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/no_image" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,19 +27,25 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:text="titre"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/auteur"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:text="auteur" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/localisation"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="localisation" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Par: " />
+
+            <TextView
+                android:id="@+id/auteur"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="auteur" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/type"
@@ -45,23 +53,38 @@
             android:layout_height="20dp"
             android:text="type" />
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:text="date" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/categorie"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="categorie" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Date de l'incident:" />
 
-        <TextView
-            android:id="@+id/importance"
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="date" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="importance" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Importance: "/>
+            <TextView
+                android:id="@+id/importance"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="importance" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

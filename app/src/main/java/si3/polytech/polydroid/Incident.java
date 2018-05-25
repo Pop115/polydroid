@@ -1,5 +1,8 @@
 package si3.polytech.polydroid;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,8 +14,9 @@ import java.util.Date;
  * Created by Kienan on 09/04/2018.
  */
 
-public class Incident implements Serializable{
+public class Incident implements Parcelable{
 
+    private String firebaseId;
     private long timestamp;
     private long timestampWanted;
     private String auteur;
@@ -21,6 +25,7 @@ public class Incident implements Serializable{
     private String titre;
     private Importance importance;
     private Type type;
+    private Contact contact;
 
     public Incident(){
         this.timestamp = System.currentTimeMillis();
@@ -46,6 +51,51 @@ public class Incident implements Serializable{
         this.type = type;
     }
 
+    protected Incident(Parcel in) {
+        timestamp = in.readLong();
+        timestampWanted = in.readLong();
+        auteur = in.readString();
+        localisation = in.readParcelable(Localisation.class.getClassLoader());
+        description = in.readString();
+        titre = in.readString();
+        contact = in.readParcelable(Contact.class.getClassLoader());
+        importance = Importance.valueOf(in.readString());
+        type = Type.valueOf(in.readString());
+        firebaseId = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(timestamp);
+        dest.writeLong(timestampWanted);
+        dest.writeString(auteur);
+        dest.writeParcelable(localisation, flags);
+        dest.writeString(description);
+        dest.writeString(titre);
+        dest.writeParcelable(contact, flags);
+
+        dest.writeString(importance.name());
+        dest.writeString(type.name());
+        dest.writeString(firebaseId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Incident> CREATOR = new Creator<Incident>() {
+        @Override
+        public Incident createFromParcel(Parcel in) {
+            return new Incident(in);
+        }
+
+        @Override
+        public Incident[] newArray(int size) {
+            return new Incident[size];
+        }
+    };
+
     @Override
     public String toString() {
         JSONObject jsonObject = new JSONObject();
@@ -61,6 +111,22 @@ public class Incident implements Serializable{
             e.printStackTrace();
         }
         return jsonObject.toString();
+    }
+
+    public String getFirebaseId() {
+        return firebaseId;
+    }
+
+    public void setFirebaseId(String firebaseId) {
+        this.firebaseId = firebaseId;
+    }
+
+    public void setContact(Contact contact){
+        this.contact = contact;
+    }
+
+    public Contact getContact() {
+        return contact;
     }
 
     public long getTimestamp() {
@@ -124,4 +190,7 @@ public class Incident implements Serializable{
     public void setType(Type type) {
         this.type = type;
     }
+
+
+
 }

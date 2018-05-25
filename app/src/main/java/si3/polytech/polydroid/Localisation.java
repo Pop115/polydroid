@@ -1,10 +1,13 @@
 package si3.polytech.polydroid;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Kienan on 09/04/2018.
  */
 
-public class Localisation {
+public class Localisation implements Parcelable{
 
     String batiment;
     String salle;
@@ -21,6 +24,36 @@ public class Localisation {
         this.salle = salle;
         this.details = details;
     }
+
+    protected Localisation(Parcel in) {
+        batiment = in.readString();
+        salle = in.readString();
+        details = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(batiment);
+        dest.writeString(salle);
+        dest.writeString(details);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Localisation> CREATOR = new Creator<Localisation>() {
+        @Override
+        public Localisation createFromParcel(Parcel in) {
+            return new Localisation(in);
+        }
+
+        @Override
+        public Localisation[] newArray(int size) {
+            return new Localisation[size];
+        }
+    };
 
     @Override
     public String toString() {

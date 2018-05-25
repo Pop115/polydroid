@@ -12,27 +12,22 @@ import android.widget.TextView;
 class IncidentViewHolder extends RecyclerView.ViewHolder {
 
     TextView auteur;
-    TextView localisation;
     TextView type;
     ImageView image;
     TextView titre;
-    TextView categorie;
+    TextView importance;
     TextView date;
 
-    public IncidentViewHolder(View itemView, ImageView image, TextView auteur, TextView titre, TextView type, TextView localisation, TextView categorie, TextView date) {
+    public IncidentViewHolder(View itemView, ImageView image, TextView auteur, TextView titre, TextView type, TextView importance, TextView date) {
         super(itemView);
         this.auteur = auteur;
-        this.localisation = localisation;
         this.type = type;
         this.image = image;
         this.titre = titre;
-        this.categorie = categorie;
+        this.importance = importance;
         this.date = date;
     }
 
-    public TextView getLocalisation() {
-        return localisation;
-    }
 
     public TextView getType() {
         return type;
@@ -50,8 +45,8 @@ class IncidentViewHolder extends RecyclerView.ViewHolder {
         return titre;
     }
 
-    public TextView getCategorie() {
-        return categorie;
+    public TextView getImportance() {
+        return importance;
     }
 
     public TextView getDate() {

@@ -7,13 +7,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="5dp">
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date de l'incident" />
+            android:text="Date de l'incident"
+            android:layout_marginTop="5dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,18 +29,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/calendarImage"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/calendar" />
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:padding="1dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:src="@drawable/calendar_add" />
         </LinearLayout>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date de résolution souhaitée" />
+            android:text="Date de résolution souhaitée"
+            android:layout_marginTop="5dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,18 +58,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/calendarImage2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/calendar" />
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/calendar_add"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:padding="1dp"/>
         </LinearLayout>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Type" />
+            android:text="Type"
+            android:layout_marginTop="5dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/formType"
@@ -70,18 +86,59 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Importance" />
+            android:text="Importance"
+            android:layout_marginTop="5dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/formImportance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></Spinner>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact"
+            android:layout_marginTop="5dp"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/formContactName"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/formContact"/>
+
+            <!--<ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_delete"/>
+            -->
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ajouter un contact"
+                android:onClick="pickContact"
+                android:id="@+id/buttonPickContact"/>
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Photo" />
+            android:text="Photo"
+            android:layout_marginTop="5dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/add_photo"
@@ -93,7 +150,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Titre" />
+            android:text="Titre"
+            android:layout_marginTop="5dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/formTitre"
@@ -104,7 +164,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Description" />
+            android:text="Description"
+            android:layout_marginTop="5dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/formDescription"
