@@ -1,4 +1,4 @@
-package si3.polytech.polydroid;
+package si3.polytech.polydroid.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,9 +6,9 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+
 
 /**
  * Created by Kienan on 09/04/2018.

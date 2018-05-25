@@ -1,4 +1,4 @@
-package si3.polytech.polydroid;
+package si3.polytech.polydroid.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

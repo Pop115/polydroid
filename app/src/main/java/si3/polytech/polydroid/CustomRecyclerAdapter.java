@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
+import si3.polytech.polydroid.models.Incident;
 
 
 /**

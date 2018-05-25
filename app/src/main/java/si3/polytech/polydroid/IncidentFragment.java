@@ -13,7 +13,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import si3.polytech.polydroid.models.Incident;
 
 /**
  * Created by Kienan on 25/03/2018.

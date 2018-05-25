@@ -1,10 +1,10 @@
-package si3.polytech.polydroid;
+package si3.polytech.polydroid.models;
 
 /**
  * Created by Kienan on 09/04/2018.
  */
 
-enum Type {
+public enum Type {
 
     ELEC("Probl\u00E8me \u00E9lectrique"),
     MAT("Probl\u00E8me mat\u00E9riel"),

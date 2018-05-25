@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.DecimalFormat;
 import java.util.Date;
 
+import si3.polytech.polydroid.models.Incident;
+
 public class DetailsActivity extends AppCompatActivity {
 
     String firebaseid;

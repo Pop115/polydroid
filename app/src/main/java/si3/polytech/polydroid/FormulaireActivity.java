@@ -36,6 +36,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import si3.polytech.polydroid.models.Contact;
+import si3.polytech.polydroid.models.Importance;
+import si3.polytech.polydroid.models.Incident;
+import si3.polytech.polydroid.models.Localisation;
+import si3.polytech.polydroid.models.Type;
+
 /**
  * Created by Kienan on 14/05/2018.
  */
