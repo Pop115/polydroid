@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import si3.polytech.polydroid.models.Incident;
@@ -50,9 +51,16 @@ public class DetailsActivity extends AppCompatActivity {
         descriptionView.setText(incident.getDescription());
         importanceView.setText(incident.getImportance().toString());
         typeView.setText(incident.getType().toString());
+
         DecimalFormat mFormat = new DecimalFormat("00");
-        dateView.setText(mFormat.format(Double.valueOf(date.getDay())) + "/" + mFormat.format(Double.valueOf(date.getMonth())) + "/" + (date.getYear() + 1900));
-        dateViewWanted.setText(mFormat.format(Double.valueOf(dateWanted.getDay())) + "/" + mFormat.format(Double.valueOf(dateWanted.getMonth())) + "/" + (dateWanted.getYear() + 1900));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String dateText = mFormat.format(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + mFormat.format(calendar.get(Calendar.MONTH)+1) + "/" + ( calendar.get(Calendar.YEAR));
+        calendar.setTime(dateWanted);
+        String dateTextWanted = mFormat.format(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + mFormat.format(calendar.get(Calendar.MONTH)+1) + "/" + ( calendar.get(Calendar.YEAR));
+
+        dateView.setText(dateText);
+        dateViewWanted.setText(dateTextWanted);
         auteurView.setText(incident.getAuteur());
 
         if (incident.getContact() != null && incident.getContact().getName() != null && !incident.getContact().getPhoneNumbers().isEmpty()) {

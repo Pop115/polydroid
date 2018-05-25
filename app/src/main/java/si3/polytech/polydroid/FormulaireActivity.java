@@ -61,14 +61,14 @@ public class FormulaireActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
         DecimalFormat mFormat = new DecimalFormat("00");
-        dateText.setText(mFormat.format(Double.valueOf(day)) + "/" + mFormat.format(Double.valueOf(month)) + "/" + year);
+        dateText.setText(mFormat.format(day) + "/" + mFormat.format(month) + "/" + year);
 
         TextView dateTextWanted = (TextView) this.findViewById(R.id.formDate2);
         calendar.add(Calendar.DATE, 1);
         int day2 = calendar.get(Calendar.DAY_OF_MONTH);
         int month2 = calendar.get(Calendar.MONTH) + 1;
         int year2 = calendar.get(Calendar.YEAR);
-        dateTextWanted.setText(mFormat.format(Double.valueOf(day2)) + "/" + mFormat.format(Double.valueOf(month2)) + "/" + year2);
+        dateTextWanted.setText(mFormat.format(day2) + "/" + mFormat.format(month2) + "/" + year2);
 
         ImageButton calendarImage = (ImageButton) this.findViewById(R.id.calendarImage);
         calendarImage.setOnClickListener(new View.OnClickListener() {

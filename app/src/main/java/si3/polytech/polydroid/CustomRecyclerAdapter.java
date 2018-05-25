@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import si3.polytech.polydroid.models.Incident;
 
@@ -47,7 +49,11 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<IncidentViewHold
         Incident incident = incidentArrayList.get(position);
 
         DecimalFormat mFormat = new DecimalFormat("00");
-        holder.getDate().setText(mFormat.format(Double.valueOf(incident.getDate().getDay())) + "/" + mFormat.format(Double.valueOf(incident.getDate().getMonth())) + "/" + (incident.getDate().getYear()+1900));
+        Date date = incident.getDate();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String dateText = mFormat.format(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + mFormat.format(calendar.get(Calendar.MONTH)+1) + "/" + ( calendar.get(Calendar.YEAR));
+        holder.getDate().setText(dateText);
 
         holder.getTitre().setText(incident.getTitre());
         holder.getImportance().setText(incident.getImportance().toString());
